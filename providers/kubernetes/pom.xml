@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>ephemerals-parent</artifactId>
+        <groupId>com.liveperson.ephemerals</groupId>
+        <version>1.0.0.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>ephemerals-provider-kubernetes</artifactId>
+
+    <properties>
+        <kubernetes-client.version>1.4.7</kubernetes-client.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.liveperson.ephemerals</groupId>
+            <artifactId>ephemerals-core</artifactId>
+            <version>1.0.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.fabric8</groupId>
+            <artifactId>kubernetes-client</artifactId>
+            <version>${kubernetes-client.version}</version>
+        </dependency>
+    </dependencies>
+
+
+</project>
