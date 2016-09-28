@@ -26,10 +26,12 @@ First, add below Maven dependencies:
 </dependency>
 ```
 
-Define Nginx ephemeral and Kubernetes cluster:
+Initialize Nginx ephemeral server and set Kubernetes cluster configuration using Junit rule:
 
 ```java
-NginxEphemeral nginxEphemeral = new NginxEphemeral.Builder(new KubernetesDeploymentContext(
+@Rule
+public EphemeralResource<URL> nginxResource = new EphemeralResource(
+new NginxEphemeral.Builder(new KubernetesDeploymentContext(
         new KubernetesDeploymentHandler.Builder(
                 new KubernetesService.Builder()
                         .withHost(KUBERNETES_HOST)
@@ -42,15 +44,9 @@ NginxEphemeral nginxEphemeral = new NginxEphemeral.Builder(new KubernetesDeploym
         .build());
 ```
 
-Deploy Nginx server to Kubernetes cluster, send HTTP request to server and verify response:
+Send HTTP request to server and verify response:
 
 ```java
-@Before
-public void before() {
-    //Deploy Nginx Ephemeral and get endpoint as URL object
-    url = nginxEphemeral.get(); 
-}
-
 @Test
 public void test() throws IOException {
 
