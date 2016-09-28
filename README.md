@@ -1,11 +1,67 @@
 # Ephemerals
 
-Ephemerals are short-lived cluster endpoints, designed to setup complex test environments on the fly, be integrated with cluster management systems and enable testing at a large scale.
-Ephemerals can be deployed on various cloud providers for creating use-and-throw instances of browsers, web services, databases or anything else than can expose a connection endpoint.
+Ephemerals make it easy to setup test environment on-the-fly and let it scale with your container cluster.
 
-The main motivation behind Ephemerals is that whole test environment is launched and destroyed during test lifecycle.
+## Quickstart
 
-Ephemerals currently support Kuberenetes as a deployment provider. More providers will be added soon.
+For this quickstart, we will create a simple Junit test which will launch an Nginx server, send HTTP request to server and assert that response is valid. We will assume that you already have a Kubernetes cluster and it's ready to use.
+
+First, add below Maven dependencies:
+
+```xml
+<dependency>
+        <groupId>com.liveperson.ephemerals</groupId>
+        <artifactId>ephemerals-core</artifactId>
+        <version>1.0.0.0</version>
+</dependency>
+<dependency>
+        <groupId>com.liveperson.ephemerals</groupId>
+        <artifactId>ephemerals-module-nginx</artifactId>
+        <version>1.0.0.0</version>
+</dependency>
+<dependency>
+        <groupId>com.liveperson.ephemerals</groupId>
+        <artifactId>ephemerals-provider-kubernetes</artifactId>
+        <version>1.0.0.0</version>
+</dependency>
+```
+
+Define Nginx ephemeral and Kubernetes cluster:
+
+```java
+NginxEphemeral nginxEphemeral = new NginxEphemeral.Builder(new KubernetesDeploymentContext(
+        new KubernetesDeploymentHandler.Builder(
+                new KubernetesService.Builder()
+                        .withHost(KUBERNETES_HOST)
+                        .withTrustCerts(KUBERNETES_TRUSTCERTS)
+                        .withUsername(KUBERNETES_USERNAME)
+                        .withPassword(KUBERNETES_PASSWORD)
+                        .withNamespace(KUBERNETES_NAMESPACE)
+                        .build())
+                .build()))
+        .build());
+```
+
+Deploy Nginx server to Kubernetes cluster, send HTTP request to server and verify response:
+
+```java
+@Before
+public void before() {
+    //Deploy Nginx Ephemeral and get endpoint as URL object
+    url = nginxEphemeral.get(); 
+}
+
+@Test
+public void test() throws IOException {
+
+    //Send HTTP request and verify reponse
+    HttpClient client = HttpClientBuilder.create().build();
+    HttpGet request = new HttpGet(url.toString());
+    HttpResponse response = client.execute(request);
+    Assert.assertEquals(200,response.getStatusLine().getStatusCode());
+
+}
+```
 
 ## Documentation
 
@@ -30,52 +86,6 @@ Ephemerals can scale according to your servers cluster resources. The amount of 
 Ephemerals can be used with any cloud computing platform (Google Cloud, AWS, etc..), given it supports one of our Deployment Providers.
 A perfect use-case would be using Ephemerals with Google Cloud Platform and its GKE, which is based on Kubernetes.
 
-## Quickstart
-
-To start using Ephemerals, you need to have an existing cluster supported by one of Deployment Provider.
-Below example will assume a Kubernetes cluster is already setup.
-
-Setup Kubernetes Client:
-
-```java
-KubernetesClient kubernetesClient = new DefaultKubernetesClient(new ConfigBuilder()
-        .withMasterUrl(K8S_URL)
-        .withTrustCerts(true)
-        .withUsername(K8S_USERNAME)
-        .withPassword(K8S_PASSWORD)
-        .withNamespace(K8S_NAMESPACE)
-        .build());
-```
-
-Setup deployment configuration;
-
-```java
-Deployer deployer = new KubernetesDeployer.Builder(kubernetesClient)
-        .build();
-
-DeploymentConfiguration deploymentConfiguration = new KubernetesDeploymentConfiguration.Builder()
-        .build();
-        
-```
-
-Initialize Nginx Ephemeral:
-
-```java
-NginxEphemeral nginxEphemeral = new NginxEphemeral.Builder(deployer,deploymentConfiguration)
-        .build();
-```
-
-Deploy Ephemeral:
-
-```java
-URL url = nginxEphemeral.get();
-```
-
-Send HTTP GET to Nginx server:
-
-````java
-HttpClient httpClient = HttpClient.create().get(url).verifyResponseOk();
-```
 
 ## Build
 
