@@ -1,5 +1,7 @@
 # Ephemerals
 
+[![Build Status](https://travis-ci.org/LivePersonInc/ephemerals.svg?branch=master)](https://travis-ci.org/LivePersonInc/ephemerals)
+
 Ephemerals make it easy to setup test environment on-the-fly and let it scale with your container cluster.
 
 ## Quickstart
