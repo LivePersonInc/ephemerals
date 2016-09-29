@@ -11,32 +11,45 @@
 
     <artifactId>ephemerals-examples</artifactId>
 
-<dependencies>
-    <dependency>
-        <groupId>com.liveperson.ephemerals</groupId>
-        <artifactId>ephemerals-provider-kubernetes</artifactId>
-        <version>1.0.0.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-        <groupId>com.liveperson.ephemerals</groupId>
-        <artifactId>ephemerals-module-selenium</artifactId>
-        <version>1.0.0.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-        <groupId>com.liveperson.ephemerals</groupId>
-        <artifactId>ephemerals-module-nginx</artifactId>
-        <version>1.0.0.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-        <groupId>com.liveperson.ephemerals</groupId>
-        <artifactId>ephemerals-module-wiremock</artifactId>
-        <version>1.0.0.0-SNAPSHOT</version>
-        <exclusions>
-            <exclusion>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-annotations</artifactId>
-            </exclusion>
-        </exclusions>
-    </dependency>
-</dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>com.liveperson.ephemerals</groupId>
+            <artifactId>ephemerals-provider-kubernetes</artifactId>
+            <version>1.0.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.liveperson.ephemerals</groupId>
+            <artifactId>ephemerals-module-selenium</artifactId>
+            <version>1.0.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.liveperson.ephemerals</groupId>
+            <artifactId>ephemerals-module-nginx</artifactId>
+            <version>1.0.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.liveperson.ephemerals</groupId>
+            <artifactId>ephemerals-module-wiremock</artifactId>
+            <version>1.0.0.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-annotations</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
