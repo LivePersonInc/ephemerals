@@ -84,7 +84,7 @@ public abstract class DeployableEphemeral<T> implements Ephemeral<T> {
     protected abstract DeploymentUnit createDeploymentUnit();
 
     /**
-     * Concrete DeployableEphemeral must define its {@link Object<T>}, based on {@link DeploymentEndpoints}
+     * Concrete DeployableEphemeral must define its {@link Object}, based on {@link DeploymentEndpoints}
      *
      * Default value: null
      *
