@@ -4,9 +4,17 @@
 
 Ephemerals make it easy to setup test environment on-the-fly and let it scale with your container cluster.
 
+## Prerequisites
+
+Ephemerals need to be deployed and launched on cluster using a cluster manager. Following cluster managers are currently supported:
+
+- Kubernetes
+- Mesos (SOON)
+- Docker Swarm (SOON)
+
 ## Quickstart
 
-For this quickstart, we will create a simple Junit test which will launch an Nginx server, send HTTP request to server and assert that response is valid. We will assume that you already have a Kubernetes cluster and it's ready to use.
+For this quickstart, we will create a simple Junit test which will launch an Nginx server using Kubernetes, send HTTP request to Nginx server and assert that response is valid. We will assume that you already have a Kubernetes cluster and it's ready to use.
 
 First, add below Maven dependencies:
 
