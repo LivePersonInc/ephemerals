@@ -6,40 +6,28 @@ package com.liveperson.ephemerals.deploy;
 public enum DeploymentStatus {
 
         /**
-         * The app or group is being deployed. If there are multiple apps or
-         * app instances, at least one of them is still being deployed.
+         * Deployment unit is in progress
          */
-         DEPLOYING,
+         IN_PROGRESS,
 
          /**
-         * All apps have been successfully deployed.
+         * Deployment unit has been deployed
          */
-        DEPLOYED,
+        FINISHED,
 
         /**
-         * The app or group is known to the system, but is not currently deployed.
+         * Deployment unit has not been deployed
          */
-        UNDEPLOYED,
+        PARTIALLY,
 
         /**
-         * In the case of multiple apps, some have successfully deployed, while
-         * others have not. This state does not apply for individual app instances.
-         */
-        PARTIAL,
-
-        /**
-         * All apps have failed deployment.
+         * Deployment unit has failed
          */
         FAILED,
 
         /**
-         * A system error occurred trying to determine deployment status.
+         * Deployment unit status is unknown
          */
-        ERROR,
-
-        /**
-         * The app or group deployment is not known to the system.
-         */
-        UKNOWN;
+        UNKNOWN;
 
 }

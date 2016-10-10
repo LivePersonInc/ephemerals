@@ -36,20 +36,22 @@ public class KubernetesDeploymentStatusWaiter extends DeploymentStatusWaiter {
         switch (pod.getStatus().getPhase()) {
 
             case "Pending":
-                return DeploymentStatus.DEPLOYING;
+                return DeploymentStatus.IN_PROGRESS;
 
             case "Running":
-                // we assume we only have one container
+
                 if (containerStatus.getReady()) {
-                    return DeploymentStatus.DEPLOYED;
+                    return DeploymentStatus.FINISHED;
                 }
-                // if we are being killed repeatedly due to OOM or using too much CPU
+
+                // Out of memory / CPU issues
                 else if (containerStatus.getRestartCount() > deployment.getDeploymentConfiguration().getMaxDeploymentRetries() &&
                         (containerStatus.getLastState().getTerminated().getExitCode() == 137 ||
                                 containerStatus.getLastState().getTerminated().getExitCode() == 143)) {
                     return DeploymentStatus.FAILED;
                 }
-                // if we are being restarted repeatedly due to the same error, consider the app crashed
+
+                // General error
                 else if (containerStatus.getRestartCount() > deployment.getDeploymentConfiguration().getMaxDeploymentRetries() &&
                         containerStatus.getLastState().getTerminated().getReason().contains("Error") &&
                         containerStatus.getState().getTerminated().getReason().contains("Error") &&
@@ -57,29 +59,32 @@ public class KubernetesDeploymentStatusWaiter extends DeploymentStatusWaiter {
                                 containerStatus.getState().getTerminated().getExitCode())) {
                     return DeploymentStatus.FAILED;
                 }
-                // if we are being restarted repeatedly and we're in a CrashLoopBackOff, consider the app crashed
+
+                // CrashLoopBackOff errors
                 else if (containerStatus.getRestartCount() > deployment.getDeploymentConfiguration().getMaxDeploymentRetries() &&
                         containerStatus.getLastState().getTerminated() != null &&
                         containerStatus.getState().getWaiting().getReason().contains("CrashLoopBackOff")) {
                     return DeploymentStatus.FAILED;
                 }
-                // if we were terminated and not restarted, we consider this undeployed
+
+                // Partial deployment if it was terminated and not restarted
                 else if (containerStatus.getRestartCount() == 0 &&
                         containerStatus.getState().getTerminated() != null) {
-                    return DeploymentStatus.UNDEPLOYED;
+                    return DeploymentStatus.PARTIALLY;
                 }
+
                 else {
-                    return DeploymentStatus.DEPLOYING;
+                    return DeploymentStatus.IN_PROGRESS;
                 }
 
             case "Failed":
                 return DeploymentStatus.FAILED;
 
             case "Unknown":
-                return DeploymentStatus.UKNOWN;
+                return DeploymentStatus.UNKNOWN;
 
             default:
-                return DeploymentStatus.UKNOWN;
+                return DeploymentStatus.UNKNOWN;
 
         }
     }

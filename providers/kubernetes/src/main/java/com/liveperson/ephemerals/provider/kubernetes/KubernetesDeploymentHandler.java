@@ -45,9 +45,9 @@ public final class KubernetesDeploymentHandler implements DeploymentHandler {
         kubernetesClient.replicationControllers().inNamespace
                 (kubernetesClient.getNamespace()).create(replicationController);
 
-        // Wait for deployment to finish by polling KubernetesServiceBuilder and waiting for 'DEPLOYED' status
+        // Wait for deployment to finish by polling KubernetesServiceBuilder and waiting for 'FINISHED' status
         KubernetesDeploymentStatusWaiter deploymentStatusWaiter =
-                new KubernetesDeploymentStatusWaiter(kubernetesClient, deployment, DeploymentStatus.DEPLOYED);
+                new KubernetesDeploymentStatusWaiter(kubernetesClient, deployment, DeploymentStatus.FINISHED);
         try {
             deploymentStatusWaiter.start();
         } catch (TimeoutException e) {
