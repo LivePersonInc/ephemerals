@@ -25,9 +25,14 @@ public abstract class DeploymentStatusWaiter extends Waiter {
 
     @Override
     protected boolean isConditionMet() {
-        DeploymentStatus deploymentStatus = getDeploymentStatus();
-        logger.info("Deployment {} status: {} - desired status: {}",deployment.getId(),deploymentStatus,desiredStatus);
-        return deploymentStatus.equals(desiredStatus);
+        try {
+            DeploymentStatus deploymentStatus = getDeploymentStatus();
+            logger.info("Deployment {} status: {} - desired status: {}",deployment.getId(),deploymentStatus,desiredStatus);
+            return deploymentStatus.equals(desiredStatus);
+        } catch(Exception e) {
+            logger.warn("Unable to fetch deployment status");
+            return false;
+        }
     }
 
 }
