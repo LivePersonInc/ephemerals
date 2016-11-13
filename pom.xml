@@ -5,7 +5,7 @@
     <groupId>com.liveperson.ephemerals</groupId>
     <artifactId>ephemerals-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0.1-SNAPSHOT</version>
+    <version>1.0.0.1</version>
     <inceptionYear>2016</inceptionYear>
     <name>Ephemerals</name>
     <description>Short-lived test objects, on the cluster</description>
