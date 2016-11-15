@@ -14,7 +14,7 @@ Ephemerals need to be deployed and launched on cluster using a cluster manager. 
 
 ## Quickstart
 
-For this quickstart, we will create a simple Junit test which will launch an Nginx server using Kubernetes, send HTTP request to Nginx server and assert that response is valid. We will assume that you already have a Kubernetes cluster and it's ready to use.
+For this quickstart, we will create a simple Junit test which will launch a Selenium standalone server using Kubernetes and initialize a RemoteWebDriver instance . We will assume that you already have a Kubernetes cluster and it's ready to use.
 
 First, add below Maven dependencies:
 
@@ -26,7 +26,7 @@ First, add below Maven dependencies:
 </dependency>
 <dependency>
         <groupId>com.liveperson.ephemerals</groupId>
-        <artifactId>ephemerals-module-nginx</artifactId>
+        <artifactId>ephemerals-module-selenium</artifactId>
         <version>1.0.0.1</version>
 </dependency>
 <dependency>
@@ -36,12 +36,12 @@ First, add below Maven dependencies:
 </dependency>
 ```
 
-Initialize Nginx ephemeral server and set Kubernetes cluster configuration using Junit rule:
+Initialize FireFox Selenium ephemeral instance and set Kubernetes cluster configuration using Junit rule:
 
 ```java
 @Rule
-public EphemeralResource<URL> nginxResource = new EphemeralResource(
-new NginxEphemeral.Builder(new KubernetesDeploymentContext(
+public EphemeralResource<RemoteWebDriver> seleniumResource = new EphemeralResource(
+new SeleniumEphemeral.Builder(new KubernetesDeploymentContext(
         new KubernetesDeploymentHandler.Builder(
                 new KubernetesService.Builder()
                         .withHost(KUBERNETES_HOST)
@@ -51,20 +51,19 @@ new NginxEphemeral.Builder(new KubernetesDeploymentContext(
                         .withNamespace(KUBERNETES_NAMESPACE)
                         .build())
                 .build()))
+                .withDesiredCapabilities(DesiredCapabilities.firefox())
         .build());
 ```
 
-Send HTTP request to server and verify response:
+Get RemoteWebDriver instance and do some stuff using WebDriver API:
 
 ```java
 @Test
 public void test() throws IOException {
 
-    //Send HTTP request and verify reponse
-    HttpClient client = HttpClientBuilder.create().build();
-    HttpGet request = new HttpGet(url.toString());
-    HttpResponse response = client.execute(request);
-    Assert.assertEquals(200,response.getStatusLine().getStatusCode());
+        RemoteWebDriver remoteWebDriver = seleniumResource.get();
+        remoteWebDriver.get("http://yahoo.com");
+        Assert.assertNotNull(remoteWebDriver.findElementById("uh-logo"));
 
 }
 ```
