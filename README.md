@@ -70,6 +70,8 @@ public void test() throws IOException {
 }
 ```
 
+For more examples, see [here](https://github.com/LivePersonInc/ephemerals/tree/master/examples)
+
 ## Documentation
 
 See the [Wiki](https://github.com/LivePersonInc/ephemerals/wiki/) for documentation and examples.
