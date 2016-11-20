@@ -2,7 +2,9 @@
 
 [![Build Status](https://travis-ci.org/LivePersonInc/ephemerals.svg?branch=master)](https://travis-ci.org/LivePersonInc/ephemerals)
 
-Ephemerals make it easy to setup test environment on-the-fly and let it scale with your container cluster. The main motivation behind Ephemerals is that whole test environment is launched and destroyed during test lifecycle. Ephemerals takes care of deployment process of testing endpoints and initialization of test objects.
+Ephemerals make it easy to setup test environment on-the-fly and let it scale with your container cluster. The main motivation behind Ephemerals is that whole test environment is launched and destroyed during test lifecycle. 
+
+Ephemerals takes care of deployment process of testing endpoints and initialization of test objects:
 
 ![](https://github.com/LivePersonInc/ephemerals/raw/master/eph.png)
 
