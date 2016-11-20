@@ -16,6 +16,8 @@ Ephemeral objects will be deployed and launched on a container cluster using a c
 
 - Kubernetes
 
+For this quickstart, you can create a Kubernetes cluster by opening an account on [Google Cloud Platform (GCP)](https://cloud.google.com). GCP and its [Container Engine](https://cloud.google.com/container-engine/) use Kubernetes to manage and orchestrate containers in the cluster. 
+
 ## Quickstart
 
 For this quickstart, we will create a simple Junit test which will launch a Selenium standalone server using Kubernetes and initialize a RemoteWebDriver instance . We will assume that you already have a Kubernetes cluster and it's ready to use.
