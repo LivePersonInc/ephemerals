@@ -6,6 +6,8 @@ Ephemerals make it easy to setup test environment on-the-fly and let it scale wi
 
 ![](https://github.com/LivePersonInc/ephemerals/raw/master/eph.png)
 
+Ephemerals can be deployed on various cloud providers for creating use-and-throw instances of browsers, web services, databases or anything else than can expose a connection endpoint.
+
 ## Prerequisites
 
 Ephemeral objects will be deployed and launched on a container cluster using a cluster manager. Following cluster managers are currently supported:
