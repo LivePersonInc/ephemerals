@@ -8,11 +8,9 @@ Ephemerals make it easy to setup test environment on-the-fly and let it scale wi
 
 ## Prerequisites
 
-Ephemerals need to be deployed and launched on cluster using a cluster manager. Following cluster managers are currently supported:
+Ephemeral objects will be deployed and launched on a container cluster using a cluster manager. Following cluster managers are currently supported:
 
 - Kubernetes
-- Mesos (SOON)
-- Docker Swarm (SOON)
 
 ## Quickstart
 
