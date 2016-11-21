@@ -7,6 +7,7 @@ import io.fabric8.kubernetes.api.model.*;
 import io.fabric8.kubernetes.api.model.Probe;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.liveperson.ephemerals.provider.kubernetes.KubernetesDeploymentHandler.DEPLOYMENT_LABEL_KEY;
@@ -53,6 +54,7 @@ public class DefaultKubernetesDeploymentStrategy implements KubernetesDeployment
                 .withName(deployment.getId())
                 .withPorts(containerPortList)
                 .withImage(deploymentUnit.getImage())
+                .withEnv(envVars(deploymentUnit.getEnvVars()))
                 .withResources(new ResourceRequirementsBuilder()
                         .addToLimits("cpu",new QuantityBuilder()
                                 .withAmount(String.valueOf(deploymentUnit.getCpu()*1000)+"m").build())
@@ -64,6 +66,13 @@ public class DefaultKubernetesDeploymentStrategy implements KubernetesDeployment
         podSpec.addToContainers(container);
 
         return podSpec.build();
+    }
+
+    public static List<EnvVar> envVars(Map<String,String> envVarsMap) {
+
+        return envVarsMap.entrySet().stream()
+                .map(pair -> new EnvVarBuilder().withName(pair.getKey()).withValue(pair.getValue()).build())
+                .collect(Collectors.toList());
     }
 
     public static Probe probe(com.liveperson.ephemerals.deploy.probe.Probe probe) {
