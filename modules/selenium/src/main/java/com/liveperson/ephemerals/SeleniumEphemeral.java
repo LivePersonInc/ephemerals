@@ -26,6 +26,7 @@ public final class SeleniumEphemeral extends DeployableEphemeral<RemoteWebDriver
     private final static String SERVER_PATH = "/wd/hub";
     private static final String CHROME_IMAGE = "selenium/standalone-chrome-debug:2.53.0";
     private static final String FIREFOX_IMAGE = "selenium/standalone-firefox-debug:2.53.0";
+    private static final String PHANTOMJS_IMAGE = "davert/phantomjs-env:latest";
 
     private final DesiredCapabilities desiredCapabilities;
 
@@ -69,6 +70,9 @@ public final class SeleniumEphemeral extends DeployableEphemeral<RemoteWebDriver
                 break;
             case BrowserType.FIREFOX:
                 image = FIREFOX_IMAGE;
+                break;
+            case BrowserType.PHANTOMJS:
+                image = PHANTOMJS_IMAGE;
                 break;
             default:
                 throw new UnsupportedOperationException("Provided browser type '" + browserName + "' is not supported");
