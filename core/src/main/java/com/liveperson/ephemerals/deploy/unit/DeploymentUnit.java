@@ -2,6 +2,8 @@ package com.liveperson.ephemerals.deploy.unit;
 
 import com.liveperson.ephemerals.deploy.DeploymentPort;
 import com.liveperson.ephemerals.deploy.probe.Probe;
+import com.liveperson.ephemerals.deploy.volume.Volume;
+import com.liveperson.ephemerals.deploy.volume.VolumeMount;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,7 +57,12 @@ public class DeploymentUnit {
      */
     private final Map<String,String> envVars;
 
-    public DeploymentUnit(Builder builder ) {
+    /**
+     * Volumes
+     */
+    private final Map<VolumeMount,Volume> volumes;
+
+    public DeploymentUnit(Builder builder) {
         this.name = builder.name;
         this.healthProbe = builder.healthProbe;
         this.readinessProbe = builder.readinessProbe;
@@ -64,6 +71,7 @@ public class DeploymentUnit {
         this.mem = builder.mem;
         this.cmdArgs = builder.cmdArgs;
         this.envVars = builder.envVars;
+        this.volumes = builder.volumes;
     }
 
     public double getCpu() {
@@ -96,6 +104,8 @@ public class DeploymentUnit {
         return ports;
     }
 
+    public Map<VolumeMount,Volume> getVolumes() { return volumes; }
+
     public static class Builder {
 
         private String name;
@@ -106,6 +116,7 @@ public class DeploymentUnit {
         private int mem = 1024;
         private Map<String, String> cmdArgs = new HashMap<>();
         private Map<String, String> envVars = new HashMap<>();
+        private Map<VolumeMount,Volume> volumes = new HashMap<>();
 
         public Builder(String name) {
             this.name = name;
@@ -158,6 +169,11 @@ public class DeploymentUnit {
 
         public Builder withEnvVar(String key, String value) {
             this.envVars.put(key,value);
+            return this;
+        }
+
+        public Builder withVolume(VolumeMount volumeMount, Volume volume) {
+            this.volumes.put(volumeMount,volume);
             return this;
         }
 

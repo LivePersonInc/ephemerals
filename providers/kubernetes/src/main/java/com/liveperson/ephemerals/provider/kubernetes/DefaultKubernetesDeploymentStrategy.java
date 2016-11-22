@@ -3,11 +3,14 @@ package com.liveperson.ephemerals.provider.kubernetes;
 import com.liveperson.ephemerals.deploy.Deployment;
 import com.liveperson.ephemerals.deploy.probe.*;
 import com.liveperson.ephemerals.deploy.unit.ContainerizedDeploymentUnit;
+import com.liveperson.ephemerals.deploy.volume.*;
 import io.fabric8.kubernetes.api.model.*;
 import io.fabric8.kubernetes.api.model.Probe;
+import io.fabric8.kubernetes.api.model.Volume;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.liveperson.ephemerals.provider.kubernetes.KubernetesDeploymentHandler.DEPLOYMENT_LABEL_KEY;
@@ -63,7 +66,25 @@ public class DefaultKubernetesDeploymentStrategy implements KubernetesDeployment
                         .build())
                 .build();
 
+
+        container.setVolumeMounts(deploymentUnit.getVolumes().entrySet().stream()
+                .map(pair ->
+                        new VolumeMountBuilder()
+                                .withName(pair.getKey().getName())
+                                .withMountPath(pair.getKey().getMountPath())
+                                .build()
+                ).collect(Collectors.toList()));
+
         podSpec.addToContainers(container);
+
+        podSpec.withVolumes(deploymentUnit.getVolumes().entrySet().stream()
+                .filter(pair -> pair!=null)
+                .map(pair -> {
+                            Volume volume = volume(pair.getValue());
+                            volume.setName(pair.getKey().getName());
+                            return volume;
+                        }
+                ).collect(Collectors.toList()));
 
         return podSpec.build();
     }
@@ -73,6 +94,19 @@ public class DefaultKubernetesDeploymentStrategy implements KubernetesDeployment
         return envVarsMap.entrySet().stream()
                 .map(pair -> new EnvVarBuilder().withName(pair.getKey()).withValue(pair.getValue()).build())
                 .collect(Collectors.toList());
+    }
+
+    public static Volume volume(com.liveperson.ephemerals.deploy.volume.Volume volume) {
+        if(volume instanceof GitRepoVolume) {
+            return new VolumeBuilder()
+                    .withGitRepo(new GitRepoVolumeSourceBuilder()
+                            .withRepository(((GitRepoVolume) volume).getRepository())
+                            .withRevision(((GitRepoVolume) volume).getRevision())
+                            .withDirectory(((GitRepoVolume) volume).getTargetDirectory())
+                            .build()
+                    ).build();
+        }
+        return null;
     }
 
     public static Probe probe(com.liveperson.ephemerals.deploy.probe.Probe probe) {
