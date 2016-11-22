@@ -17,7 +17,10 @@ Ephemeral objects will be deployed and launched on a container cluster using a c
 
 - Kubernetes
 
-For this quickstart, you can create a Kubernetes cluster by opening an account on [Google Cloud Platform (GCP)](https://cloud.google.com). GCP and its [Container Engine](https://cloud.google.com/container-engine/) use Kubernetes to manage and orchestrate containers in the cluster. 
+For this quickstart, you can create a Kubernetes cluster using following options:
+
+- Run a Kuberenetes cluster locally using Minikube. You can find a detailed [tutorial here](http://blog.kubernetes.io/2016/07/minikube-easily-run-kubernetes-locally.html) on how to install and use Minikube.
+- Opening an account on [Google Cloud Platform (GCP)](https://cloud.google.com). GCP and its [Container Engine(GKE)](https://cloud.google.com/container-engine/) use Kubernetes to manage and orchestrate containers in the cluster. Follow this [tutorial](https://deis.com/blog/2016/first-kubernetes-cluster-gke/) to spinup your first Kubernetes cluster on GKE.
 
 ## Quickstart
 
