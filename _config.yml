@@ -4,7 +4,7 @@ title:               DevAid
 email:               example@gmail.com
 tagline:             Free Jekyll theme made for developers
 url:                 "" # insert your site's URL
-baseurl:             ""
+baseurl:             "/"
 
 # About/contact
 author: # you can edit these to be your personal details
