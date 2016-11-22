@@ -1,7 +1,7 @@
 # Ephemerals
 
 [![Build Status](https://travis-ci.org/LivePersonInc/ephemerals.svg?branch=master)](https://travis-ci.org/LivePersonInc/ephemerals)
-[![Maven Central](https://img.shields.io/maven-central/v/com.liveperson.ephemerals/ephemerals-core.svg)](https://github.com/LivePersonInc/ephemerals)
+[![Maven Central](https://img.shields.io/maven-central/v/com.liveperson.ephemerals/ephemerals-core.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.liveperson.ephemerals%22)
 
 Ephemerals make it easy to setup test environment on-the-fly and let it scale with your container cluster. The main motivation behind Ephemerals is that whole test environment is launched and destroyed during test lifecycle. 
 
