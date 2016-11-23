@@ -51,16 +51,7 @@ Initialize FireFox Selenium ephemeral instance and set Kubernetes cluster config
 ```java
 @Rule
 public EphemeralResource<RemoteWebDriver> seleniumResource = new EphemeralResource(
-new SeleniumEphemeral.Builder(new KubernetesDeploymentContext(
-        new KubernetesDeploymentHandler.Builder(
-                new KubernetesService.Builder()
-                        .withHost(KUBERNETES_HOST)
-                        .withTrustCerts(KUBERNETES_TRUSTCERTS)
-                        .withUsername(KUBERNETES_USERNAME)
-                        .withPassword(KUBERNETES_PASSWORD)
-                        .withNamespace(KUBERNETES_NAMESPACE)
-                        .build())
-                .build()))
+new SeleniumEphemeral.Builder(KubernetesEphemeral.create(KUBERNETES_HOST,KUBERNETES_USERNAME,KUBERNETES_PASSWORD))
                 .withDesiredCapabilities(DesiredCapabilities.firefox())
         .build());
 ```
