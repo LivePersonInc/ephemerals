@@ -2,8 +2,6 @@ package com.liveperson.ephemerals.examples;
 
 import com.liveperson.ephemerals.NginxEphemeral;
 import com.liveperson.ephemerals.junit.EphemeralResource;
-import com.liveperson.ephemerals.provider.kubernetes.KubernetesDeploymentContext;
-import com.liveperson.ephemerals.provider.kubernetes.KubernetesDeploymentHandler;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -22,10 +20,7 @@ public class NginxEphemeralTest extends EphemeralAbstractTest {
 
     @Rule
     public EphemeralResource<URL> nginxResource = new EphemeralResource(
-            new NginxEphemeral.Builder(new KubernetesDeploymentContext(
-                    new KubernetesDeploymentHandler.Builder(
-                            getKubernetesService())
-                            .build()))
+            new NginxEphemeral.Builder(getKubernetesDeploymentContext())
                     .build());
 
     @Test

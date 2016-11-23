@@ -2,8 +2,6 @@ package com.liveperson.ephemerals.examples;
 
 import com.liveperson.ephemerals.WireMockEphemeral;
 import com.liveperson.ephemerals.junit.EphemeralResource;
-import com.liveperson.ephemerals.provider.kubernetes.KubernetesDeploymentContext;
-import com.liveperson.ephemerals.provider.kubernetes.KubernetesDeploymentHandler;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -22,10 +20,7 @@ public class WireMockEphemeralTest extends EphemeralAbstractTest {
 
     @Rule
     public EphemeralResource<URL> wireMockResource = new EphemeralResource(
-            new WireMockEphemeral.Builder(new KubernetesDeploymentContext(
-                    new KubernetesDeploymentHandler.Builder(
-                            getKubernetesService())
-                            .build()))
+            new WireMockEphemeral.Builder(getKubernetesDeploymentContext())
                     .withStubMapping("{ \"request\": { \"url\": \"/get/this\", \"method\": \"GET\" }, \"response\": { \"status\": 200 } }")
                     .build());
 

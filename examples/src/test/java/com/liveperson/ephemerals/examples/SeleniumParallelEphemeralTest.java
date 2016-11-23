@@ -1,8 +1,6 @@
 package com.liveperson.ephemerals.examples;
 
 import com.liveperson.ephemerals.SeleniumEphemeral;
-import com.liveperson.ephemerals.provider.kubernetes.KubernetesDeploymentContext;
-import com.liveperson.ephemerals.provider.kubernetes.KubernetesDeploymentHandler;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
@@ -64,11 +62,7 @@ public class SeleniumParallelEphemeralTest extends EphemeralAbstractTest {
     //A callable callableTask for launching browser session on cluster
     Callable<RemoteWebDriver> callableTask = () -> {
 
-        SeleniumEphemeral seleniumEphemeral = new SeleniumEphemeral.Builder
-                (new KubernetesDeploymentContext(
-                        new KubernetesDeploymentHandler.Builder(
-                                getKubernetesService())
-                                .build()))
+        SeleniumEphemeral seleniumEphemeral = new SeleniumEphemeral.Builder(getKubernetesDeploymentContext())
                 .withDesiredCapabilities(RandomCapability.randomize()) //randomize between firefox and chrome
                 .build();
 

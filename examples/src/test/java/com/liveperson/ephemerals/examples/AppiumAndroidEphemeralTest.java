@@ -2,8 +2,6 @@ package com.liveperson.ephemerals.examples;
 
 import com.liveperson.ephemerals.AppiumAndroidEphemeral;
 import com.liveperson.ephemerals.junit.EphemeralResource;
-import com.liveperson.ephemerals.provider.kubernetes.KubernetesDeploymentContext;
-import com.liveperson.ephemerals.provider.kubernetes.KubernetesDeploymentHandler;
 import io.appium.java_client.android.AndroidDriver;
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,10 +34,7 @@ public class AppiumAndroidEphemeralTest extends EphemeralAbstractTest {
 
     @Rule
     public EphemeralResource<AndroidDriver> seleniumResource = new EphemeralResource(
-            new AppiumAndroidEphemeral.Builder(new KubernetesDeploymentContext(
-                    new KubernetesDeploymentHandler.Builder(
-                            getKubernetesService())
-                            .build()))
+            new AppiumAndroidEphemeral.Builder(getKubernetesDeploymentContext())
                     .withDesiredCapabilities(CAPS)
                     .build());
 
