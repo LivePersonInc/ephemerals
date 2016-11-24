@@ -23,6 +23,7 @@ public final class SeleniumEphemeral extends DeployableEphemeral<RemoteWebDriver
      * Selenium related constant values
      */
     private final static int SELENIUM_PORT = 4444;
+    private final static int VNC_PORT = 5900;
     private final static String SERVER_PATH = "/wd/hub";
     private static final String CHROME_IMAGE = "selenium/standalone-chrome-debug:2.53.0";
     private static final String FIREFOX_IMAGE = "selenium/standalone-firefox-debug:2.53.0";
@@ -86,6 +87,8 @@ public final class SeleniumEphemeral extends DeployableEphemeral<RemoteWebDriver
                         .withPort(SELENIUM_PORT)
                         .build())
                 .withPort(new DeploymentPort.Builder("selenium-server",SELENIUM_PORT)
+                        .build())
+                .withPort(new DeploymentPort.Builder("vnc-server",VNC_PORT)
                         .build())
                 .build();
     }
