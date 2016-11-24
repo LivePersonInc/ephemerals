@@ -32,17 +32,17 @@ First, add below Maven dependencies:
 <dependency>
         <groupId>com.liveperson.ephemerals</groupId>
         <artifactId>ephemerals-core</artifactId>
-        <version>1.0.0.2</version>
+        <version>1.0.0.3</version>
 </dependency>
 <dependency>
         <groupId>com.liveperson.ephemerals</groupId>
         <artifactId>ephemerals-module-selenium</artifactId>
-        <version>1.0.0.2</version>
+        <version>1.0.0.3</version>
 </dependency>
 <dependency>
         <groupId>com.liveperson.ephemerals</groupId>
         <artifactId>ephemerals-provider-kubernetes</artifactId>
-        <version>1.0.0.2</version>
+        <version>1.0.0.3</version>
 </dependency>
 ```
 
