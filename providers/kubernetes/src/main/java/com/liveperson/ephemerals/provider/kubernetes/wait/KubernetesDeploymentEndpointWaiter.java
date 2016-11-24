@@ -69,7 +69,7 @@ public class KubernetesDeploymentEndpointWaiter extends DeploymentEndpointWaiter
                 if (nodeAddress.getType().equals("ExternalIP")) {
                     nodeExternalIp = nodeAddress.getAddress();
                 }
-                else if(nodeAddress.getType().equals("InternalIp")) {
+                else if(nodeAddress.getType().equals("InternalIP")) {
                     nodeInternalIp = nodeAddress.getAddress();
                 }
             }
