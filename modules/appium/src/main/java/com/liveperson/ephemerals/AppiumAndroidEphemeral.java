@@ -22,8 +22,9 @@ public class AppiumAndroidEphemeral extends DeployableEphemeral<AndroidDriver> {
      * Selenium related constant values
      */
     private final static int APPIUM_PORT = 4723;
+    private final static int VNC_PORT = 5900;
     private final static String SERVER_STATUS_PATH = "/wd/hub/status";
-    private static final String APPUIM_IMAGE = "rgonalo/appium-emulator";
+    private static final String APPUIM_IMAGE = "rgonalo/appium-emulator-debug";
 
     private final DesiredCapabilities desiredCapabilities;
 
@@ -69,6 +70,8 @@ public class AppiumAndroidEphemeral extends DeployableEphemeral<AndroidDriver> {
                         .withPort(APPIUM_PORT)
                         .build())
                 .withPort(new DeploymentPort.Builder("appium-server",APPIUM_PORT)
+                        .build())
+                .withPort(new DeploymentPort.Builder("vnc-server",VNC_PORT)
                         .build())
                 .build();
     }
