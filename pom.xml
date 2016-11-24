@@ -40,6 +40,7 @@
         <module>modules/wiremock</module>
         <module>modules/nginx</module>
         <module>modules/appium</module>
+        <module>tools/selenium-hub</module>
     </modules>
 
     <dependencies>
