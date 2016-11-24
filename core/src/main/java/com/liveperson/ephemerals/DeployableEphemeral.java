@@ -43,7 +43,7 @@ public abstract class DeployableEphemeral<T> implements Ephemeral<T> {
             logger.info("Deploying deployment {}",deployment.getId());
             endpoints = deploymentContext.getDeploymentHandler().deploy(deployment);
             logger.info("Deployment {} done",deployment.getId());
-            logger.info("Found endpoints {} for deployment {}",endpoints,deployment.getId());
+            logger.info("Endpoints found for deployment {}: {}",deployment.getId(),endpoints);
         } catch(Exception e) {
             logger.error("Error while deploying {}",deployment.getId(),e);
             throw new DeploymentException(e);

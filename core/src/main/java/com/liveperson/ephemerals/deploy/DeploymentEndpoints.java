@@ -58,6 +58,21 @@ public class DeploymentEndpoints {
         public void setHost(String host) {
             this.host = host;
         }
+
+        @Override
+        public String toString() {
+            return String.format("EP name=%s, host=%s, port=%s",name,host,port);
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for(Endpoint endpoint : endpoints) {
+            stringBuilder.append(endpoint);
+            stringBuilder.append(";");
+        }
+        return stringBuilder.toString();
     }
 
 }
