@@ -3,7 +3,7 @@
     <parent>
         <artifactId>ephemerals-parent</artifactId>
         <groupId>com.liveperson.ephemerals</groupId>
-        <version>1.0.0.4-SNAPSHOT</version>
+        <version>1.0.0.4</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,27 +13,27 @@
         <dependency>
             <groupId>com.liveperson.ephemerals</groupId>
             <artifactId>ephemerals-provider-kubernetes</artifactId>
-            <version>1.0.0.4-SNAPSHOT</version>
+            <version>1.0.0.4</version>
         </dependency>
         <dependency>
             <groupId>com.liveperson.ephemerals</groupId>
             <artifactId>ephemerals-module-selenium</artifactId>
-            <version>1.0.0.4-SNAPSHOT</version>
+            <version>1.0.0.4</version>
         </dependency>
         <dependency>
             <groupId>com.liveperson.ephemerals</groupId>
             <artifactId>ephemerals-module-appium</artifactId>
-            <version>1.0.0.4-SNAPSHOT</version>
+            <version>1.0.0.4</version>
         </dependency>
         <dependency>
             <groupId>com.liveperson.ephemerals</groupId>
             <artifactId>ephemerals-module-nginx</artifactId>
-            <version>1.0.0.4-SNAPSHOT</version>
+            <version>1.0.0.4</version>
         </dependency>
         <dependency>
             <groupId>com.liveperson.ephemerals</groupId>
             <artifactId>ephemerals-module-wiremock</artifactId>
-            <version>1.0.0.4-SNAPSHOT</version>
+            <version>1.0.0.4</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.fasterxml.jackson.core</groupId>
