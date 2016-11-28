@@ -18,6 +18,8 @@ public abstract class DeployableEphemeral<T> implements Ephemeral<T> {
 
     private T object;
 
+    private DeploymentEndpoints endpoints;
+
     protected DeployableEphemeral(Builder builder) {
         this.deploymentContext = builder.deploymentContext;
         this.deployment = null;
@@ -38,7 +40,6 @@ public abstract class DeployableEphemeral<T> implements Ephemeral<T> {
                 .build();
 
         // Do deploy!
-        DeploymentEndpoints endpoints;
         try {
             logger.info("Deploying deployment {}",deployment.getId());
             endpoints = deploymentContext.getDeploymentHandler().deploy(deployment);
@@ -74,6 +75,12 @@ public abstract class DeployableEphemeral<T> implements Ephemeral<T> {
             logger.error("Error while destroying deployment",e);
             throw new DeploymentException(e);
         }
+    }
+
+    public DeploymentEndpoints getEndpoints(){
+        if(endpoints==null || endpoints.list().size()==0)
+            logger.warn("No endpoints to return");
+        return this.endpoints;
     }
 
     /**
