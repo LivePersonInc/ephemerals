@@ -3,7 +3,7 @@
     <parent>
         <artifactId>ephemerals-parent</artifactId>
         <groupId>com.liveperson.ephemerals</groupId>
-        <version>1.0.0.4</version>
+        <version>1.0.0.5-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -18,7 +18,7 @@
         <dependency>
             <groupId>com.liveperson.ephemerals</groupId>
             <artifactId>ephemerals-core</artifactId>
-            <version>1.0.0.4</version>
+            <version>1.0.0.5-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.fabric8</groupId>

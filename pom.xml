@@ -5,7 +5,7 @@
     <groupId>com.liveperson.ephemerals</groupId>
     <artifactId>ephemerals-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0.4</version>
+    <version>1.0.0.5-SNAPSHOT</version>
     <inceptionYear>2016</inceptionYear>
     <name>Ephemerals</name>
     <description>Short-lived test objects, on the cluster</description>
@@ -29,7 +29,7 @@
         <url>https://github.com/LivePersonInc/ephemerals</url>
         <connection>scm:git:https://github.com/LivePersonInc/ephemerals.git</connection>
         <developerConnection>scm:git:https://github.com/LivePersonInc/ephemerals.git</developerConnection>
-      <tag>ephemerals-parent-1.0.0.4</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <modules>
