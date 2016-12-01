@@ -12,7 +12,7 @@ public abstract class EphemeralAbstractTest {
 
     protected static KubernetesDeploymentContext getKubernetesDeploymentContext() {
 
-        if(kubernetesDeploymentContext!=null) {
+        if (kubernetesDeploymentContext != null) {
             return kubernetesDeploymentContext;
         }
 
@@ -20,7 +20,7 @@ public abstract class EphemeralAbstractTest {
         String username = System.getProperty("ephemerals.kubernetes.username");
         String password = System.getProperty("ephemerals.kubernetes.password");
 
-        kubernetesDeploymentContext = KubernetesEphemeral.create(kubernetesHost,username,password);
+        kubernetesDeploymentContext = KubernetesEphemeral.create(kubernetesHost, username, password);
         return kubernetesDeploymentContext;
     }
 
