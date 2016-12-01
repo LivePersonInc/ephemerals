@@ -83,7 +83,7 @@ public final class SeleniumEphemeral extends DeployableEphemeral<RemoteWebDriver
                 throw new UnsupportedOperationException("Provided browser type '" + browserName + "' is not supported");
         }
 
-        return new DockerDeploymentUnit.Builder("selenium", image)
+        DeploymentUnit.Builder builder = new DockerDeploymentUnit.Builder("selenium", image)
                 .withCpu(1)
                 .withMem(1024)
                 .withHealthProbe(new HttpProbe.Builder()
@@ -93,10 +93,13 @@ public final class SeleniumEphemeral extends DeployableEphemeral<RemoteWebDriver
                 .withPort(new DeploymentPort.Builder("selenium-server", SELENIUM_PORT)
                         .build())
                 .withPort(new DeploymentPort.Builder("vnc-server", VNC_PORT)
-                        .build())
-                .withEnvVar("SCREEN_WIDTH", dimension == null ? String.valueOf(DEFAULT_WIDTH) : String.valueOf(dimension.getWidth()))
-                .withEnvVar("SCREEN_HEIGHT", dimension == null ? String.valueOf(DEFAULT_HEIGHT) : String.valueOf(dimension.getHeight()))
-                .build();
+                        .build());
+        if (dimension != null) {
+            builder.withEnvVar("SCREEN_WIDTH", String.valueOf(dimension.getWidth()))
+                    .withEnvVar("SCREEN_HEIGHT", String.valueOf(dimension.getHeight()));
+        }
+        return builder.build();
+
     }
 
     public static class Builder extends DeployableEphemeral.Builder<Builder, RemoteWebDriver> {
