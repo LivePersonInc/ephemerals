@@ -28,8 +28,7 @@ public final class SeleniumEphemeral extends DeployableEphemeral<RemoteWebDriver
     private static final String CHROME_IMAGE = "selenium/standalone-chrome-debug:2.53.0";
     private static final String FIREFOX_IMAGE = "selenium/standalone-firefox-debug:2.53.0";
     private static final String PHANTOMJS_IMAGE = "davert/phantomjs-env:latest";
-    private static final int DEFAULT_WIDTH = 1800;
-    private static final int DEFAULT_HEIGHT = 1700;
+
 
     private final DesiredCapabilities desiredCapabilities;
     private Dimension dimension;
