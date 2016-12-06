@@ -127,7 +127,7 @@ public class DefaultKubernetesDeploymentStrategy implements KubernetesDeployment
             return new ProbeBuilder()
                     .withTcpSocket(
                             new TCPSocketActionBuilder()
-                                    .withNewPort(((HttpProbe) probe).getPort())
+                                    .withNewPort(((TcpProbe) probe).getPort())
                                     .build()
                     )
                     .withTimeoutSeconds(probe.getTimeout())
