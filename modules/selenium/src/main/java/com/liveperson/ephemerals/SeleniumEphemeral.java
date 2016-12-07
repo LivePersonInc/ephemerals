@@ -17,7 +17,7 @@ import java.net.URL;
  *
  * Created by waseemh on 9/4/16.
  */
-public final class SeleniumEphemeral extends DeployableEphemeral<RemoteWebDriver> {
+public class SeleniumEphemeral extends DeployableEphemeral<RemoteWebDriver> {
 
     /**
      * Selenium related constant values
@@ -33,7 +33,7 @@ public final class SeleniumEphemeral extends DeployableEphemeral<RemoteWebDriver
 
     private final static Logger logger = LoggerFactory.getLogger(SeleniumEphemeral.class);
 
-    private SeleniumEphemeral(Builder builder) {
+    protected SeleniumEphemeral(Builder builder) {
         super(builder);
         this.desiredCapabilities = builder.desiredCapabilities;
     }
