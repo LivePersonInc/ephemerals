@@ -6,12 +6,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.liveperson.ephemerals.provider.kubernetes.KubernetesEphemeral;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +29,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/wd/hub")
 public class SeleniumEphemeralHubController {
+
+    Map<String,SeleniumEphemeral> seleniumEphemerals = new HashMap<>();
 
     @RequestMapping(method= RequestMethod.POST, value="/session")
     public String newSession(@RequestBody String desiredCapabilities) throws IOException {
@@ -41,6 +48,7 @@ public class SeleniumEphemeralHubController {
                 .build();
 
         RemoteWebDriver remoteWebDriver = seleniumEphemeral.get();
+        seleniumEphemerals.put(remoteWebDriver.getSessionId().toString(),seleniumEphemeral);
         try {
             String json = new ObjectMapper().writeValueAsString(remoteWebDriver.getCapabilities().asMap());
             return json;
@@ -48,6 +56,18 @@ public class SeleniumEphemeralHubController {
             return null;
         }
 
+    }
+
+    @RequestMapping(value="/session/:sessionId/**")
+    public String sessionOperation(String sessionId, @RequestBody String body, HttpMethod method, HttpServletRequest request, HttpServletResponse response) throws URISyntaxException {
+
+        seleniumEphemerals.get(sessionId);
+        URI uri = new URI("http", null, null, 80, request.getRequestURI(), request.getQueryString(), null);
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> responseEntity =
+                restTemplate.exchange(uri, method, new HttpEntity<String>(body), String.class);
+
+        return responseEntity.getBody();
     }
 
 }
