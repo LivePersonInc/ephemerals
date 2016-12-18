@@ -121,6 +121,7 @@ public class DefaultKubernetesDeploymentStrategy implements KubernetesDeployment
                     .withTimeoutSeconds(probe.getTimeout())
                     .withInitialDelaySeconds(probe.getDelay())
                     .withPeriodSeconds(probe.getPeriod())
+                    .withFailureThreshold(10)
                     .build();
         }
         else if (probe instanceof TcpProbe) {
@@ -133,6 +134,7 @@ public class DefaultKubernetesDeploymentStrategy implements KubernetesDeployment
                     .withTimeoutSeconds(probe.getTimeout())
                     .withInitialDelaySeconds(probe.getDelay())
                     .withPeriodSeconds(probe.getPeriod())
+                    .withFailureThreshold(10)
                     .build();
         }
         else if (probe instanceof CommandProbe) {
@@ -145,6 +147,7 @@ public class DefaultKubernetesDeploymentStrategy implements KubernetesDeployment
                     .withTimeoutSeconds(probe.getTimeout())
                     .withInitialDelaySeconds(probe.getDelay())
                     .withPeriodSeconds(probe.getPeriod())
+                    .withFailureThreshold(10)
                     .build();
         }
         else throw new UnsupportedOperationException("Unsupported probe type " + probe.getClass().getName());

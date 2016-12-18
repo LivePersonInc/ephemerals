@@ -42,7 +42,7 @@ public abstract class Probe {
 
         private int delay = 10;
 
-        private int timeout = 10;
+        private int timeout = 60;
 
         private int period = 60;
 

@@ -40,10 +40,14 @@ public class AppiumAndroidEphemeralTest extends EphemeralAbstractTest {
 
     @Test
     public void test() {
-        WebDriverWait webDriverWait = new WebDriverWait(seleniumResource.get(),60);
-        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@text='Add Contact']")));
-        WebElement el = seleniumResource.get().findElement(By.xpath(".//*[@text='Add Contact']"));
-        el.click();
+
+        AndroidDriver androidDriver = seleniumResource.get();
+
+        WebDriverWait webDriverWait = new WebDriverWait(androidDriver,60);
+
+        WebElement addContactButton = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@text='Add Contact']")));
+        addContactButton.click();
+
     }
 
 }
