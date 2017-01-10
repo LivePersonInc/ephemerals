@@ -20,7 +20,7 @@ public abstract class Waiter {
     }
 
     public Waiter() {
-        this(Duration.ofSeconds(360),Duration.ofMillis(2000));
+        this(Duration.ofSeconds(600),Duration.ofMillis(2000));
     }
 
     public void start() throws TimeoutException {
