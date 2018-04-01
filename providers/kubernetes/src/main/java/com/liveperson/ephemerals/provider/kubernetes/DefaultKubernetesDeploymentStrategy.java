@@ -106,6 +106,12 @@ public class DefaultKubernetesDeploymentStrategy implements KubernetesDeployment
                             .build()
                     ).build();
         }
+        else if(volume instanceof SharedMemoryVolume) {
+            return new VolumeBuilder()
+                    .withName(((SharedMemoryVolume) volume).getName())
+                    .withNewEmptyDir(((SharedMemoryVolume) volume).getEmptyDir().getMedium())
+                    .build();
+        }
         return null;
     }
 
